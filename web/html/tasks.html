@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои задачи</title>
+    <link rel="stylesheet" href="/css/tasks.css">
+    <!-- Font Awesome для иконок (опционально, но красиво) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="app">
+        <!-- Шапка с пользователем -->
+        <header class="header">
+            <div class="header-container">
+                <h1 class="logo">TaskFlow</h1>
+                <div class="user-menu">
+                    <span class="user-name" id="userName">{{.FirstName}} {{.LastName}}</span>
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Выйти</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main">
+            <!-- Кнопка создания задачи -->
+            <div class="create-task-btn-container">
+                <button class="create-task-btn" id="showCreateFormBtn">
+                    <i class="fas fa-plus"></i>
+                    Создать новую задачу
+                </button>
+            </div>
+
+            <!-- Форма создания задачи (изначально скрыта) -->
+            <div class="task-form-container" id="taskFormContainer" style="display: none;">
+                <form id="taskForm" class="task-form">
+                    <h3>Новая задача</h3>
+                    <div class="form-group">
+                        <label for="taskName">Название <span class="required">*</span></label>
+                        <input type="text" id="taskName" name="name" placeholder="Купить продукты" required>
+                        <small class="hint">Краткое название задачи</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="taskDescription">Описание</label>
+                        <textarea id="taskDescription" name="description" rows="3"
+                            placeholder="молоко, сыр, хлеб"></textarea>
+                        <small class="hint">Детали, уточнения, список</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancelFormBtn">Отмена</button>
+                        <button type="submit" class="btn-primary">Создать задачу</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Фильтры и поиск -->
+            <div class="filters-section">
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Поиск по названию...">
+                </div>
+
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">Все</button>
+                    <button class="filter-tab" data-filter="active">Активные</button>
+                    <button class="filter-tab" data-filter="completed">Выполненные</button>
+                </div>
+
+                <div class="date-sort">
+                    <select id="dateSort">
+                        <option value="desc">Сначала новые</option>
+                        <option value="asc">Сначала старые</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Список задач -->
+            <div class="tasks-container">
+                <div class="tasks-grid" id="tasksGrid">
+                    <!-- Задачи будут добавляться сюда через JavaScript -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Шаблон задачи для JavaScript -->
+    <template id="taskTemplate">
+        <div class="task-card" data-task-id="">
+            <div class="task-header">
+                <div class="task-checkbox">
+                    <input type="checkbox" class="task-checkbox-input" id="task-checkbox">
+                    <label for="task-checkbox" class="checkbox-custom"></label>
+                </div>
+
+                <!-- Режим просмотра -->
+                <div class="view-mode">
+                    <h3 class="task-title">
+                        <span class="title-text"></span>
+                    </h3>
+                    <div class="task-description">
+                        <span class="description-text"></span>
+                    </div>
+                </div>
+
+                <!-- Режим редактирования -->
+                <div class="edit-mode">
+                    <input type="text" class="edit-title-input" placeholder="Название задачи">
+                    <textarea class="edit-description-input"
+                        placeholder="Описание задачи (можно несколько строк)"></textarea>
+                </div>
+
+                <div class="task-actions">
+                    <button class="task-btn edit-btn" title="Редактировать">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="task-btn save-btn" title="Сохранить" style="display: none;">
+                        <i class="fas fa-check"></i>
+                    </button>
+                    <button class="task-btn cancel-btn" title="Отмена" style="display: none;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <button class="task-btn delete-btn" title="Удалить">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="task-footer">
+                <div class="task-dates">
+                    <span class="created-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span class="created-value"></span>
+                    </span>
+                    <span class="completed-date" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="completed-value"></span>
+                    </span>
+                </div>
+                <div class="task-status"></div>
+            </div>
+        </div>
+    </template>
+
+    <script src="/js/tasks.js"></script>
+</body>
+
+</html>

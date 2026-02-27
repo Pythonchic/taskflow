@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход / Регистрация</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Переключатель вкладок -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchForm('login', event)">Вход</button>
+            <button class="tab-btn" onclick="switchForm('register', event)">Регистрация</button>
+        </div>
+
+        <!-- Форма входа -->
+        <form id="login-form" class="form active" method="POST" action="/api/v1/login">
+            <div class="form-group">
+                <label for="login-email">Email</label>
+                <input type="email" id="login-email" name="email" placeholder="example@mail.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="login-password">Пароль</label>
+                <input type="password" id="login-password" name="password" placeholder="••••••" required>
+            </div>
+
+            <div class="form-group checkbox">
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember">Запомнить меня</label>
+            </div>
+
+            <button type="submit" class="btn">Войти</button>
+
+            <div class="links">
+                <a href="/forgot-password">Забыли пароль?</a>
+            </div>
+        </form>
+
+        <!-- Форма регистрации -->
+        <form id="register-form" class="form" method="POST" action="/api/v1/register">
+            <div class="name-row">
+                <div class="form-group">
+                    <label for="first-name">Имя</label>
+                    <input type="text" id="first-name" name="first-name" placeholder="Иван">
+                </div>
+
+                <div class="form-group">
+                    <label for="last-name">Фамилия</label>
+                    <input type="text" id="last-name" name="last-name" placeholder="Петров">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="register-email">Email</label>
+                <input type="email" id="register-email" name="email" placeholder="example@mail.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="register-password">Пароль</label>
+                <input type="password" id="register-password" name="password" placeholder="Минимум 6 символов"
+                    minlength="6" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm-password">Подтверждение пароля</label>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="••••••••" required>
+            </div>
+
+            <div class="form-group checkbox">
+                <input type="checkbox" id="agree-terms" name="agree-terms" required>
+                <label for="agree-terms">Я согласен с <a href="/terms">условиями использования</a></label>
+            </div>
+
+            <button type="submit" class="btn">Зарегистрироваться</button>
+        </form>
+    </div>
+
+    <!-- Модальное окно для подтверждения email -->
+    <div id="verification-modal" class="modal">
+        <div class="modal-content">
+            <h3>Подтверждение email</h3>
+            <p>На вашу почту отправлен 6-значный код подтверждения</p>
+            <p class="email-display" id="verification-email"></p>
+
+            <div class="verification-form">
+                <div class="code-inputs">
+                    <input type="text" maxlength="1" class="code-digit" inputmode="numeric" pattern="[0-9]*">
+                    <input type="text" maxlength="1" class="code-digit" inputmode="numeric" pattern="[0-9]*">
+                    <input type="text" maxlength="1" class="code-digit" inputmode="numeric" pattern="[0-9]*">
+                    <input type="text" maxlength="1" class="code-digit" inputmode="numeric" pattern="[0-9]*">
+                    <input type="text" maxlength="1" class="code-digit" inputmode="numeric" pattern="[0-9]*">
+                    <input type="text" maxlength="1" class="code-digit" inputmode="numeric" pattern="[0-9]*">
+                </div>
+
+                <div class="verification-actions">
+                    <button class="btn-secondary" id="cancel-verification">Отмена</button>
+                    <button class="btn-primary" id="verify-code" disabled>Подтвердить</button>
+                </div>
+
+                <div class="resend-link">
+                    <a href="#" id="resend-code">Отправить код повторно</a>
+                </div>
+
+                <div id="verification-message" class="verification-message"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/login.js"></script>
+</body>
+
+</html>
