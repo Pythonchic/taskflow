@@ -50,7 +50,7 @@ func Load() *AppConfig {
 	loadEnvFile()
 	return &AppConfig{
 		Server: ServerConfig{
-			Port:         normalizePort(getEnv("PORT", "8080")),
+			Port:         normalizePort(getEnv("PORT", ":8080")),
 			ReadTimeout:  getEnvAsDuration("READ_TIMEOUT", 10*time.Second),
 			WriteTimeout: getEnvAsDuration("WRITE_TIMEOUT", 10*time.Second),
 			IdleTimeout:  getEnvAsDuration("IDLE_TIMEOUT", 30*time.Second),

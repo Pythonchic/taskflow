@@ -157,6 +157,8 @@ func (s *Server) Run() error {
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, os.Interrupt, syscall.SIGTERM)
 
+	prettyprint.Info("🔍 ПОЛНЫЙ ADDR: %s\n", s.http.Addr)
+
 	// Запуск сервера в горутине
 	go func() {
 		prettyprint.Info("Starting server on http://localhost%s", s.config.Port)

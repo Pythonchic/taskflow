@@ -1,0 +1,25 @@
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+
+# Local files
+taskflow.db
+*.log
+tmp/
+
+# Environment
+.env.local
+.env.production
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# Binaries
+*.exe
+*.exe~
